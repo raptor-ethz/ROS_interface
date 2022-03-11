@@ -1,1 +1,0 @@
-include_directories(communication_lib)
