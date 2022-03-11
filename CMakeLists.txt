@@ -21,44 +21,22 @@ find_package(fastrtps REQUIRED)
 
 catkin_package(
   INCLUDE_DIRS
-    lib
   CATKIN_DEPENDS
     roscpp
     sensor_msgs
-  LIBRARIES 
-    comm_lib
 )
+
 
 ###########
 ## Build ##
 ###########
 
-add_subdirectory(lib)
-
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
+add_subdirectory(src)
 
-# Declare a C++ executable
-add_executable(${PROJECT_NAME}
-  src/comm_lib_interface_node.cpp
-)
-
-# Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME} PUBLIC
-  ${catkin_LIBRARIES}
-)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE
-comm_lib
-)
-
-# Third party dependencies
-target_link_libraries(${PROJECT_NAME} PRIVATE
-fastcdr 
-fastrtps
-)
 
 
 #############
@@ -69,9 +47,3 @@ fastrtps
 install(TARGETS ${PROJECT_NAME}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
-
-
-# Mark other files for installation (e.g. launch and bag files, etc.)
-# install(DIRECTORY launch config rviz
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
